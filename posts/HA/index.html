@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta author="王福强"><meta keywords="HA,王福强,Fuqiang Wang,fujohnwang"><meta description="HA - 架构百科"><link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"><title>HA</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><link rel="stylesheet" href="/_astro/index.ae5ab4c2.css" /><script type="module" src="/_astro/hoisted.45045130.js"></script></head><body><div class="container mx-auto p-6 w-full lg:w-1/2"><nav class="space-x-6 mt-6 mb-12"><a href="/">Home</a><a href="https://afoo.me">Author</a><a href="https://edu.afoo.me">AI Courses</a><a href="https://store.afoo.me">Fuqiang Store</a></nav><main class="prose lg:prose-xl"><div style="color:gray; font-size: x-small">2023-09-09</div><h1 id="ha">HA</h1>
+<p>HA即高可用， High Availability， 与其说它是一种架构思维或者架构实践，不如说它是一种架构诉求或者说非业务需求。</p>
+<p>要达成高可用其实有很多方式， 比如常见的就是做冗余， 像MySQL就有主从互相备份以及双A等部署拓扑结构，目的其实就是为了满足HA的需求。</p>
+<p>当然， 现在很多企业都上云了，不再需要自己操心IDC的事情（IDC即数据中心）， 但如果要满足高可用需求， 企业自己不做，云厂商通常也会做，至少会采用两地三中心的策略来保障HA基本需求，即至少在两个地方部署至少三个数据中心的策略，这样，可以从物理上大概率的规避可用性风险，如果两个地方同时发生地震的概率应该极小吧？</p>
+<p>当企业的业务覆盖全国甚至全球的时候，通常为了高可用，也会实施“异地多活”的策略，也就是在多地多数据中心同时部署和运行相同的多个服务实例和集群，相对于主从或者两地三中心这种往往只是热备的情况， 异地多活的实施难度显然更高，好在收益也更高。  打个不太受欢迎的比方，之前有实施类似异地多活的企业和组织， 在当前疫情管控的态势下，显然抗风险能力会更高一些，如果企业和组织都锚定在了某个高风险的管控区，那就很难受了，这次疫情有可能关乎企业的生死。</p>
+<p>HA的策略其实不总是需要宏大和复杂的规划与实施，对于某些场景，能快速重启，其实也是保障HA的一种手段，而且门槛更低，也更容易执行。</p></main><hr class="my-6"><div hx-get="https://toolfooter.afoo.me/" hx-trigger="load delay:3s, revealed"></div><footer class="mt-12"><div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACWAAAAAYAQMAAABEalRSAAAABlBMVEX///9TU1NYzE1OAAAAAXRSTlMAQObYZgAAAOtJREFUeF7tljEKwzAMRb/J0CWgI/QKOYAh1+pUcjQfpUfw2MFEHVyDQSQmQUNM9AYNcobnh4egU+YVqhAvZSpgsfolPnSv5d0nz3vHslgUdK81RLzyvHcsi+WBNxQh4Ln8pw4Wi7skAg9mXgHMrEACXJnbHIllsbqGAtwXhnYswzFzwPWxWEPc2CexoobkHM4ZpD6s2loWiyIEEwCChIomMiMEHqgP573C9eHkc5VLWh3XsljnGVoLWVl+31bp38piTVVuihtPOAm9kcRLbrFjEvqwamtZLK5eI8sSan9rXEK0LcNFrY5oWawf59S7YSRD7eMAAAAASUVORK5CYII=" style="width: 100%;"><div class="mt-3 text-center">
+Copyright © 2023 - <a href="https://afoo.me">Fuqiang Wang</a> All
+            Rights Reserved.
+</div><div class="mx-auto flex flex-col justify-center self-center items-center"><a href="https://x.com/fujohnwang" class="flex inline items-center mt-2"><svg viewBox="0 0 24 24" width="2rem" height="2rem" astro-icon="tabler:brand-twitter"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"></path></svg>
+@fujohnwang</a></div></div></footer></div><script>
+      // Set "light" theme as default
+      // if (!localStorage.theme) {
+      //   localStorage.theme = "light";
+      // }
+  
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+  
+      function attachEvent(selector, event, fn) {
+        const matches = document.querySelectorAll(selector);
+        if (matches && matches.length) {
+          matches.forEach((elem) => {
+            elem.addEventListener(event, () => fn(elem), false);
+          });
+        }
+      }
+  
+      window.onload = function () {
+        attachEvent('[data-aw-toggle-menu]', 'click', function (elem) {
+          elem.classList.toggle('expanded');
+          document.body.classList.toggle('overflow-hidden');
+          document.getElementById('header')?.classList.toggle('h-screen');
+          document.querySelector('#header nav')?.classList.toggle('hidden');
+        });
+  
+        attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
+          document.documentElement.classList.toggle('dark');
+          localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+  
+        attachEvent('[data-aw-social-share]', 'click', function (elem) {
+          const network = elem.getAttribute('data-aw-social-share');
+          const url = encodeURIComponent(elem.getAttribute('data-aw-url'));
+          const text = encodeURIComponent(elem.getAttribute('data-aw-text'));
+  
+          let href;
+          switch (network) {
+            case 'facebook':
+              href = `https://www.facebook.com/fujohnwang`;
+              break;
+            case 'twitter':
+              href = `https://twitter.com/fujohnwang`;
+              break;
+            case 'linkedin':
+              href = `https://www.linkedin.com/in/fuqiangwang/`;
+              break;
+            case 'mail':
+              href = `mailto:fujohnwang@gmail.com?subject=%22${text}%22&body=${text}%20${url}`;
+              break;
+  
+            default:
+              return;
+          }
+  
+          const newlink = document.createElement('a');
+          newlink.target = '_blank';
+          newlink.href = href;
+          newlink.click();
+        });
+      };
+      window.onpageshow = function () {
+        const elem = document.querySelector('[data-aw-toggle-menu]');
+        if (elem) {
+          elem.classList.remove('expanded');
+        }
+        document.body.classList.remove('overflow-hidden');
+        document.getElementById('header')?.classList.remove('h-screen');
+        document.querySelector('#header nav')?.classList.add('hidden');
+      };
+    </script></body></html>

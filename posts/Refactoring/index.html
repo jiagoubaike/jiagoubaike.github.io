@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta author="王福强"><meta keywords="Refactoring,王福强,Fuqiang Wang,fujohnwang"><meta description="Refactoring - 架构百科"><link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"><title>Refactoring</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><link rel="stylesheet" href="/_astro/index.ae5ab4c2.css" /><script type="module" src="/_astro/hoisted.45045130.js"></script></head><body><div class="container mx-auto p-6 w-full lg:w-1/2"><nav class="space-x-6 mt-6 mb-12"><a href="/">Home</a><a href="https://afoo.me">Author</a><a href="https://edu.afoo.me">AI Courses</a><a href="https://store.afoo.me">Fuqiang Store</a></nav><main class="prose lg:prose-xl"><div style="color:gray; font-size: x-small">2023-09-09</div><h1 id="refactoring">Refactoring</h1>
+<p>大家好，今天聊Refactoring</p>
+<p>Refactoring即“重构”的意思， 言外之意就是“做结构上的重组”， 就好比石墨和金刚石都是碳元素，但如果我们能够对石墨的结构做重组，就能够把石墨重构为金刚石。</p>
+<p>当然，软件研发中所说的Refactoring不会像“石墨重组金刚石”那样彻底，Refactoring是一个“改善”的过程，而不是完全推翻的过程，所以，我们通常强调“可以重构，但不要重写”，即Prefer Refactor to Rewrite.</p>
+<p>重构一定要有目标，更要有节奏，还要分轻重缓急。</p>
+<p>扶墙老师看到很多公司的研发团队会为了重构而重构，完全不顾业务或者公司目标，“轰轰烈烈”两三个月做重构，却迟迟出不来价值可见的成果，业务和支撑部门的核心需求更是放在一边不管，这种类型的重构我们是不提倡的。</p>
+<p>重构是手段，不是目标。重构是为了更好的应对业务体量与系统弹性而做，如果现有系统可以很好的支撑现有业务体量，那重构的优先级是可以往后放的。</p>
+<p>“技术完美情结”要有，但必须建立在企业发展良好、有足够资源支撑的基础之上。</p></main><hr class="my-6"><div hx-get="https://toolfooter.afoo.me/" hx-trigger="load delay:3s, revealed"></div><footer class="mt-12"><div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACWAAAAAYAQMAAABEalRSAAAABlBMVEX///9TU1NYzE1OAAAAAXRSTlMAQObYZgAAAOtJREFUeF7tljEKwzAMRb/J0CWgI/QKOYAh1+pUcjQfpUfw2MFEHVyDQSQmQUNM9AYNcobnh4egU+YVqhAvZSpgsfolPnSv5d0nz3vHslgUdK81RLzyvHcsi+WBNxQh4Ln8pw4Wi7skAg9mXgHMrEACXJnbHIllsbqGAtwXhnYswzFzwPWxWEPc2CexoobkHM4ZpD6s2loWiyIEEwCChIomMiMEHqgP573C9eHkc5VLWh3XsljnGVoLWVl+31bp38piTVVuihtPOAm9kcRLbrFjEvqwamtZLK5eI8sSan9rXEK0LcNFrY5oWawf59S7YSRD7eMAAAAASUVORK5CYII=" style="width: 100%;"><div class="mt-3 text-center">
+Copyright © 2023 - <a href="https://afoo.me">Fuqiang Wang</a> All
+            Rights Reserved.
+</div><div class="mx-auto flex flex-col justify-center self-center items-center"><a href="https://x.com/fujohnwang" class="flex inline items-center mt-2"><svg viewBox="0 0 24 24" width="2rem" height="2rem" astro-icon="tabler:brand-twitter"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"></path></svg>
+@fujohnwang</a></div></div></footer></div><script>
+      // Set "light" theme as default
+      // if (!localStorage.theme) {
+      //   localStorage.theme = "light";
+      // }
+  
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+  
+      function attachEvent(selector, event, fn) {
+        const matches = document.querySelectorAll(selector);
+        if (matches && matches.length) {
+          matches.forEach((elem) => {
+            elem.addEventListener(event, () => fn(elem), false);
+          });
+        }
+      }
+  
+      window.onload = function () {
+        attachEvent('[data-aw-toggle-menu]', 'click', function (elem) {
+          elem.classList.toggle('expanded');
+          document.body.classList.toggle('overflow-hidden');
+          document.getElementById('header')?.classList.toggle('h-screen');
+          document.querySelector('#header nav')?.classList.toggle('hidden');
+        });
+  
+        attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
+          document.documentElement.classList.toggle('dark');
+          localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+  
+        attachEvent('[data-aw-social-share]', 'click', function (elem) {
+          const network = elem.getAttribute('data-aw-social-share');
+          const url = encodeURIComponent(elem.getAttribute('data-aw-url'));
+          const text = encodeURIComponent(elem.getAttribute('data-aw-text'));
+  
+          let href;
+          switch (network) {
+            case 'facebook':
+              href = `https://www.facebook.com/fujohnwang`;
+              break;
+            case 'twitter':
+              href = `https://twitter.com/fujohnwang`;
+              break;
+            case 'linkedin':
+              href = `https://www.linkedin.com/in/fuqiangwang/`;
+              break;
+            case 'mail':
+              href = `mailto:fujohnwang@gmail.com?subject=%22${text}%22&body=${text}%20${url}`;
+              break;
+  
+            default:
+              return;
+          }
+  
+          const newlink = document.createElement('a');
+          newlink.target = '_blank';
+          newlink.href = href;
+          newlink.click();
+        });
+      };
+      window.onpageshow = function () {
+        const elem = document.querySelector('[data-aw-toggle-menu]');
+        if (elem) {
+          elem.classList.remove('expanded');
+        }
+        document.body.classList.remove('overflow-hidden');
+        document.getElementById('header')?.classList.remove('h-screen');
+        document.querySelector('#header nav')?.classList.add('hidden');
+      };
+    </script></body></html>
