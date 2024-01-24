@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta author="王福强"><meta keywords="PKI,王福强,Fuqiang Wang,fujohnwang"><meta description="PKI - 架构百科"><link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"><link rel="canonical" href="https://jiagoubaike.com/posts/PKI.html"><meta property="og:title" content="{frontmatter.title}"><meta property="og:description" content="{frontmatter.description}"><meta property="og:url" content="{canonicalURL}"><meta property="og:type" content="website"><meta property="og:image" content="https://afoo.me/logo.png"><meta property="og:image:alt" content="架构百科 - 王福强的logo"><title>PKI</title><!-- <ViewTransitions /> --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.10e332d1.css" /><script type="module" src="/_astro/hoisted.93dbee9f.js"></script></head><body><div class="container mx-auto p-6 w-full lg:w-1/2"><nav class="space-x-6 mt-6 mb-12"><a href="/">Home</a><a href="https://afoo.me">Author</a><a href="https://edu.afoo.me">AI Courses</a><a href="https://store.afoo.me">Fuqiang Store</a></nav><main class="prose lg:prose-xl"><div style="color:gray; font-size: x-small">2023-09-09</div><h1 id="pki">PKI</h1>
+<p>大家好，今天我们讲KPI，哦，不对，又走错片场了…</p>
+<p>今天讲PKI，即Public Key Infrastructure，也就是基于公钥的加密体系与基础设施。</p>
+<p>相对于基于密码的对称加密体系，基于公钥（PublicKey）和私钥（Private Key）的非对称加解密体系应用范围更广。</p>
+<p>在PKI体系中，公钥和私钥的角色与职能是不对等的，也就是“不一样”。 公钥只用来解密数据或者验证数据签名，私钥只用来加密数据或者给数据加签名。</p>
+<p>公钥和私钥的生成一般遵循业界的公开加解密算法，比如RSA或者较新的ED25519，从最传统的服务器安全登录shell，到今天的区块链生态，无一不依赖PKI基础安全体系。</p>
+<p>随着Google Chrome浏览器对传输安全的重视与推广， 基于HTTPS的网站也越来越多， 而保证HTTPS数据传输安全的，底层也同样是构建在PKI体系之上。</p>
+<p>所以，说PKI是今天的互联网与数据安全的最底层的基石，一点儿也不为过。</p><div><button onclick="history.back()" class="border py-1 px-3 rounded">返回(Go Back)</button></div></main><hr class="my-6"><div hx-get="https://toolfooter.afoo.me/" hx-trigger="load delay:3s, revealed"></div><footer class="mt-12"><div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACWAAAAAYAQMAAABEalRSAAAABlBMVEX///9TU1NYzE1OAAAAAXRSTlMAQObYZgAAAOtJREFUeF7tljEKwzAMRb/J0CWgI/QKOYAh1+pUcjQfpUfw2MFEHVyDQSQmQUNM9AYNcobnh4egU+YVqhAvZSpgsfolPnSv5d0nz3vHslgUdK81RLzyvHcsi+WBNxQh4Ln8pw4Wi7skAg9mXgHMrEACXJnbHIllsbqGAtwXhnYswzFzwPWxWEPc2CexoobkHM4ZpD6s2loWiyIEEwCChIomMiMEHqgP573C9eHkc5VLWh3XsljnGVoLWVl+31bp38piTVVuihtPOAm9kcRLbrFjEvqwamtZLK5eI8sSan9rXEK0LcNFrY5oWawf59S7YSRD7eMAAAAASUVORK5CYII=" style="width: 100%;"><div class="mt-3 text-center">
+Copyright © 2023 - <a href="https://afoo.me">Fuqiang Wang</a> All
+            Rights Reserved.
+</div><div class="mx-auto flex flex-col justify-center self-center items-center"><a href="https://x.com/fujohnwang" class="flex inline items-center mt-2"><svg viewBox="0 0 24 24" width="2rem" height="2rem" astro-icon="tabler:brand-twitter"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"></path></svg>
+@fujohnwang</a></div></div></footer></div><script>
+      // Set "light" theme as default
+      // if (!localStorage.theme) {
+      //   localStorage.theme = "light";
+      // }
+  
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+  
+      function attachEvent(selector, event, fn) {
+        const matches = document.querySelectorAll(selector);
+        if (matches && matches.length) {
+          matches.forEach((elem) => {
+            elem.addEventListener(event, () => fn(elem), false);
+          });
+        }
+      }
+  
+      window.onload = function () {
+        attachEvent('[data-aw-toggle-menu]', 'click', function (elem) {
+          elem.classList.toggle('expanded');
+          document.body.classList.toggle('overflow-hidden');
+          document.getElementById('header')?.classList.toggle('h-screen');
+          document.querySelector('#header nav')?.classList.toggle('hidden');
+        });
+  
+        attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
+          document.documentElement.classList.toggle('dark');
+          localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+  
+        attachEvent('[data-aw-social-share]', 'click', function (elem) {
+          const network = elem.getAttribute('data-aw-social-share');
+          const url = encodeURIComponent(elem.getAttribute('data-aw-url'));
+          const text = encodeURIComponent(elem.getAttribute('data-aw-text'));
+  
+          let href;
+          switch (network) {
+            case 'facebook':
+              href = `https://www.facebook.com/fujohnwang`;
+              break;
+            case 'twitter':
+              href = `https://twitter.com/fujohnwang`;
+              break;
+            case 'linkedin':
+              href = `https://www.linkedin.com/in/fuqiangwang/`;
+              break;
+            case 'mail':
+              href = `mailto:fujohnwang@gmail.com?subject=%22${text}%22&body=${text}%20${url}`;
+              break;
+  
+            default:
+              return;
+          }
+  
+          const newlink = document.createElement('a');
+          newlink.target = '_blank';
+          newlink.href = href;
+          newlink.click();
+        });
+      };
+      window.onpageshow = function () {
+        const elem = document.querySelector('[data-aw-toggle-menu]');
+        if (elem) {
+          elem.classList.remove('expanded');
+        }
+        document.body.classList.remove('overflow-hidden');
+        document.getElementById('header')?.classList.remove('h-screen');
+        document.querySelector('#header nav')?.classList.add('hidden');
+      };
+    </script><script src="https://formspree.io/js/formbutton-v1.min.js" defer></script></body></html>
