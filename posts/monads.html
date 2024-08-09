@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta author="王福强"><meta keywords="Monads,架构百科,王福强,Fuqiang Wang,fujohnwang"><meta description="Monads - 架构百科"><link rel="icon" type="image/svg+xml" href="https://afoo.me/favicon.svg"><link rel="canonical" href="https://jiagoubaike.com/posts/monads.html"><meta property="og:title" content="{frontmatter.title}"><meta property="og:description" content="{frontmatter.description}"><meta property="og:url" content="{canonicalURL}"><meta property="og:type" content="website"><meta property="og:image" content="https://afoo.me/logo.png"><meta property="og:image:alt" content="架构百科 - 王福强的logo"><title>Monads</title><!-- <ViewTransitions /> --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3687639021943715" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.17416588.css" /><script type="module" src="/_astro/hoisted.93dbee9f.js"></script></head><body><div class="container mx-auto p-6 w-full lg:w-1/2"><nav class="space-x-6 mt-6 mb-12"><a href="/">Home</a><a href="https://afoo.me">Author</a><a href="https://kb.afoo.me">Private School</a><a href="https://ai.afoo.me">AI Courses</a><a href="https://store.afoo.me">Fuqiang Store</a><a href="https://scala.afoo.me">Biased Scala</a><a href="https://honojs.afoo.me">Simple Honojs</a></nav><main class="prose lg:prose-xl"><div style="color:gray; font-size: x-small">2024-08-09</div><h1 id="monads">Monads</h1>
+<p>虽然我们可以通过常见的理论来讲解什么 functor/applicative/monads，不过我不打算这么做，我只想通过简单的拆解，让大家理解这些概念的本质是怎么回事，而不管它们如何分类以及具体细节上有何差异，比如下图是网上的一个截图：</p>
+<p><img alt=""  src="/_astro/monads.cd95e62a_Z1ImspB.webp" width="1094" height="288" loading="lazy" decoding="async"></p>
+<p>其实 monads相关的这些概念无非就围绕着两个核心概念展开：</p>
+<ol>
+<li>状态</li>
+<li>计算</li>
+</ol>
+<p>所有 Monads（以下都如此称呼，同时包含了 functor/applicative 这些相关概念）的操作起点都是数据状态，而且是封装在数据容器中的数据状态（俗称盒子中的数据），Monads 存在的目的就是针对这些数据容器中的数据进行操作，而操作逻辑则通过提交的函数来定义。</p>
+<p>对于状态的封装盒子来说，可以分成两类：</p>
+<ol>
+<li>一类是这个数据盒子就两种状态，要么有数据，要么没数据，有数据也只是包含一个数据，在 Scala 中，这种数据盒子类型最常见的就是 Option，在 Spring Reative 这个框架中叫 Mono；</li>
+<li>另一类是这个数据盒子可以包含 0 到 N 个数据，也就是我们俗称的集合（Collection）， 在 Spring Reative 框架中 Flux 就属于这类；</li>
+</ol>
+<p>对于封装处理逻辑的函数来说，我们也可以简单划分为两类：</p>
+<ol>
+<li>函数的参数和返回结果类型都是“盒子”中数据，也就是没有封装到“盒子”里；</li>
+<li>函数的参数或者返回结果有一个封装为了“盒子”类型，或者参数和范围结果两者都封装为了“盒子”类型； 对于这种情况，为了避免频繁的嵌套和解包，一般会定义 flatMap 操作，flatMap 的作用就是把所有盒子的盒子中的数据都展开成一层，而不是盒子套盒子。 （而且，flatMap 这个名字我觉得起的也不好，其实它的操作是先 map 然后再 flatten，跟名字是反过来的）</li>
+</ol>
+<p>所以，你看，这东西其实没有那么复杂，无非就是自找麻烦，给数据套个盒子，给函数的参数或者返回结果套个盒子，从个人角度来说，没啥 p 用，唯一的好处可能就是让代码风格统一化好看点儿。😉</p>
+<p>如果你习惯看视频，可以参考这里的讲解： <a href="https://youtu.be/8MgG07ZvH2I">https://youtu.be/8MgG07ZvH2I</a></p><div><button onclick="history.back()" class="border py-1 px-3 rounded">返回(Go Back)</button></div></main><section><div class="mx-auto w-full max-w-7xl px-5 py-16 md:px-10"><div class="grid items-center gap-8 sm:gap-20 lg:grid-cols-2"><div><h2 class="mb-4 max-w-2xl text-3xl font-bold md:text-5xl"><a href="https://afoo.me/kb.html">欢迎加入「福强私学」</a></h2><p class="mb-3 max-w-lg text-sm text-[#636262] sm:text-base">跨越2190个日夜，始终坚持“实践 + 原创”打造的715125字专属知识库，囊括了（但不限于）从职场、技术、管理与商业等多个板块的内容。</p><ul class="mb-3 max-w-lg text-sm text-[#636262] sm:text-base"><li>一个ChatGPT触达不到的地方</li><li>一个带你超越AI/人工智能的地方</li><li>一个与你一起成长的地方</li></ul><p class="mb-4 max-w-lg text-sm text-[#636262] sm:text-base"><a href="https://afoo.me/kb.html" class="border-b">https://afoo.me/kb.html</a></p></div><div><a href="https://afoo.me/kb.html"><img src="https://afoo.me/qrcodes/kb.afoo.me.png" alt="" class="mx-auto inline-block h-full w-full max-w-2xl"></a></div></div></div></section><hr class="my-6"><div hx-get="https://toolfooter.afoo.me/" hx-trigger="load delay:3s, revealed"></div><footer class="mt-12"><div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACWAAAAAYAQMAAABEalRSAAAABlBMVEX///9TU1NYzE1OAAAAAXRSTlMAQObYZgAAAOtJREFUeF7tljEKwzAMRb/J0CWgI/QKOYAh1+pUcjQfpUfw2MFEHVyDQSQmQUNM9AYNcobnh4egU+YVqhAvZSpgsfolPnSv5d0nz3vHslgUdK81RLzyvHcsi+WBNxQh4Ln8pw4Wi7skAg9mXgHMrEACXJnbHIllsbqGAtwXhnYswzFzwPWxWEPc2CexoobkHM4ZpD6s2loWiyIEEwCChIomMiMEHqgP573C9eHkc5VLWh3XsljnGVoLWVl+31bp38piTVVuihtPOAm9kcRLbrFjEvqwamtZLK5eI8sSan9rXEK0LcNFrY5oWawf59S7YSRD7eMAAAAASUVORK5CYII=" style="width: 100%;"><div class="mt-3 text-center">
+Copyright © 2023 - <a href="https://afoo.me">Fuqiang Wang</a> All
+            Rights Reserved.
+</div><div class="mx-auto flex flex-col justify-center self-center items-center"><a href="https://x.com/afoo_me" class="flex inline items-center mt-2"><svg viewBox="0 0 24 24" width="2rem" height="2rem" astro-icon="tabler:brand-twitter"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 7.773 21.692 5.25 22 4.009z"></path></svg>
+@afoo_me</a></div></div></footer></div><script>
+      // Set "light" theme as default
+      // if (!localStorage.theme) {
+      //   localStorage.theme = "light";
+      // }
+  
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+  
+      function attachEvent(selector, event, fn) {
+        const matches = document.querySelectorAll(selector);
+        if (matches && matches.length) {
+          matches.forEach((elem) => {
+            elem.addEventListener(event, () => fn(elem), false);
+          });
+        }
+      }
+  
+      window.onload = function () {
+        attachEvent('[data-aw-toggle-menu]', 'click', function (elem) {
+          elem.classList.toggle('expanded');
+          document.body.classList.toggle('overflow-hidden');
+          document.getElementById('header')?.classList.toggle('h-screen');
+          document.querySelector('#header nav')?.classList.toggle('hidden');
+        });
+  
+        attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
+          document.documentElement.classList.toggle('dark');
+          localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+  
+        attachEvent('[data-aw-social-share]', 'click', function (elem) {
+          const network = elem.getAttribute('data-aw-social-share');
+          const url = encodeURIComponent(elem.getAttribute('data-aw-url'));
+          const text = encodeURIComponent(elem.getAttribute('data-aw-text'));
+  
+          let href;
+          switch (network) {
+            case 'facebook':
+              href = `https://www.facebook.com/fujohnwang`;
+              break;
+            case 'twitter':
+              href = `https://twitter.com/fujohnwang`;
+              break;
+            case 'linkedin':
+              href = `https://www.linkedin.com/in/fuqiangwang/`;
+              break;
+            case 'mail':
+              href = `mailto:fujohnwang@gmail.com?subject=%22${text}%22&body=${text}%20${url}`;
+              break;
+  
+            default:
+              return;
+          }
+  
+          const newlink = document.createElement('a');
+          newlink.target = '_blank';
+          newlink.href = href;
+          newlink.click();
+        });
+      };
+      window.onpageshow = function () {
+        const elem = document.querySelector('[data-aw-toggle-menu]');
+        if (elem) {
+          elem.classList.remove('expanded');
+        }
+        document.body.classList.remove('overflow-hidden');
+        document.getElementById('header')?.classList.remove('h-screen');
+        document.querySelector('#header nav')?.classList.add('hidden');
+      };
+    </script><script src="https://formspree.io/js/formbutton-v1.min.js" defer></script></body></html>
